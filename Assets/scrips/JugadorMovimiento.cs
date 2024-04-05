@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JugadorMovimiento : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class JugadorMovimiento : MonoBehaviour
     public float speed = 8;
     public ParticleSystem particulas;
     Animator anim;
+    public Text texto;
 
     private Vector3 offset;
     private int premios = 0;
@@ -67,7 +69,9 @@ public class JugadorMovimiento : MonoBehaviour
             Destroy(other.gameObject, particulas.main.duration);
             Debug.Log("Ha tocado una estrella");
             premios++;
-            //texto.text = "Puntuacion: " + premios;
+            texto.text = "X" + premios;
         }
+
     }
+    
 }
