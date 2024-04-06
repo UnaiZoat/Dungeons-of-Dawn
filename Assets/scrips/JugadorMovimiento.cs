@@ -4,9 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class JugadorMovimiento : MonoBehaviour
+[RequireComponent(typeof(CharacterController))] // Añade un componente CharacterController si no lo tiene
+[RequireComponent(typeof(Rigidbody))] // Añade un componente Rigidbody si no lo tiene]
+
+public class JugadorMovimiento : LivingEntity
 {
     CharacterController characterController;
+    Rigidbody rb;
     public Camera mainCamera;
     Vector3 moveInput, moveVelocity;
     public float speed = 8;
@@ -14,12 +18,16 @@ public class JugadorMovimiento : MonoBehaviour
     Animator anim;
     public TMP_Text texto;
 
+    public delegate void OnDeathJugador();
+    public static event OnDeathJugador onDeathJugador;
+
     private Vector3 offset;
     private int premios = 0;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
         offset = mainCamera.transform.position;
         anim = GetComponentInChildren<Animator>();
     }
@@ -73,6 +81,12 @@ public class JugadorMovimiento : MonoBehaviour
             texto.text = "X" + premios;
         }
 
+    }
+    void OnDestroy() {
+        if(onDeathJugador != null)
+        {
+            onDeathJugador();
+        }
     }
     
 }
