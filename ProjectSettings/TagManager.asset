@@ -8,6 +8,8 @@ TagManager:
   - Enemigo
   - premio
   - Wall
+  - llaveNormal
+  - llaveDorada
   layers:
   - Default
   - TransparentFX

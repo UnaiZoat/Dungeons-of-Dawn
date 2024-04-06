@@ -16,13 +16,17 @@ public class JugadorMovimiento : LivingEntity
     public float speed = 8;
     public ParticleSystem particulas;
     Animator anim;
-    public TMP_Text texto;
+    public TMP_Text textoPremios;
+    public TMP_Text textoLlavesNormales;
+    public TMP_Text textoLlavesDoradas;
 
     public delegate void OnDeathJugador();
     public static event OnDeathJugador onDeathJugador;
 
     private Vector3 offset;
     private int premios = 0;
+    private int llavesNormales = 0;
+    private int llavesDoradas = 0;
 
     void Start()
     {
@@ -78,7 +82,21 @@ public class JugadorMovimiento : LivingEntity
             Destroy(other.gameObject, particulas.main.duration);
             Debug.Log("Ha tocado una estrella");
             premios++;
-            texto.text = "X" + premios;
+            textoPremios.text = "X" + premios;
+        }
+        else if (other.gameObject.CompareTag("llaveNormal"))
+        {
+            Destroy(other.gameObject, particulas.main.duration);
+            Debug.Log("Ha tocado una llave normal");
+            llavesNormales++;
+            textoLlavesNormales.text = "X" + llavesNormales;
+        }
+        else if (other.gameObject.CompareTag("llaveDorada"))
+        {
+            Destroy(other.gameObject, particulas.main.duration);
+            Debug.Log("Ha tocado una llave dorada");
+            llavesDoradas++;
+            textoLlavesDoradas.text = "X" + llavesDoradas;
         }
 
     }
