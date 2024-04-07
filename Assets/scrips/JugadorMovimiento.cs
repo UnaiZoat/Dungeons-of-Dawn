@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[RequireComponent(typeof(CharacterController))] // Añade un componente CharacterController si no lo tiene
-[RequireComponent(typeof(Rigidbody))] // Añade un componente Rigidbody si no lo tiene]
+[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody))]
 
 public class JugadorMovimiento : LivingEntity
 {
@@ -32,7 +32,7 @@ public class JugadorMovimiento : LivingEntity
     {
         characterController = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
-        offset = mainCamera.transform.position;
+        offset = mainCamera.transform.position - transform.position;
         anim = GetComponentInChildren<Animator>();
     }
 
@@ -61,17 +61,12 @@ public class JugadorMovimiento : LivingEntity
         {
             transform.LookAt(transform.position + moveInput.normalized);
         }
+    }
 
-        // Actualiza la posición de la cámara
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+    void LateUpdate()
+    {
+        // Actualiza la posición de la cámara en LateUpdate para que siga al jugador
         mainCamera.transform.position = transform.position + offset;
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        if (groundPlane.Raycast(ray, out float rayDistance))
-        {
-            Vector3 point = ray.GetPoint(rayDistance);
-            Debug.DrawLine(ray.origin, point, Color.red);
-            transform.LookAt(new Vector3(point.x, transform.position.y, point.z));
-        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -98,13 +93,13 @@ public class JugadorMovimiento : LivingEntity
             llavesDoradas++;
             textoLlavesDoradas.text = "X" + llavesDoradas;
         }
-
     }
-    void OnDestroy() {
-        if(onDeathJugador != null)
+
+    void OnDestroy()
+    {
+        if (onDeathJugador != null)
         {
             onDeathJugador();
         }
     }
-    
 }
