@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,13 +21,16 @@ public class JugadorMovimiento : LivingEntity
     public TMP_Text textoLlavesNormales;
     public TMP_Text textoLlavesDoradas;
 
+    // Eventos
     public delegate void OnDeathJugador();
     public static event OnDeathJugador onDeathJugador;
+    public delegate void OnLlaveRecogida(string tipoLlave);
+    public static event OnLlaveRecogida onLlaveRecogida;
 
     private Vector3 offset;
     private int premios = 0;
-    private int llavesNormales = 0;
-    private int llavesDoradas = 0;
+    public int llavesNormales = 0;
+    public int llavesDoradas = 0;
 
     void Start()
     {
@@ -80,19 +84,24 @@ public class JugadorMovimiento : LivingEntity
             premios++;
             textoPremios.text = "X" + premios;
         }
+        
         else if (other.gameObject.CompareTag("llaveNormal"))
         {
             Destroy(other.gameObject, particulas.main.duration);
             Debug.Log("Ha tocado una llave normal");
-            llavesNormales++;
-            textoLlavesNormales.text = "X" + llavesNormales;
+            /*llavesNormales++;
+            textoLlavesNormales.text = "X" + llavesNormales;*/
+            // Dispara el evento
+            onLlaveRecogida?.Invoke("normal");
         }
         else if (other.gameObject.CompareTag("llaveDorada"))
         {
             Destroy(other.gameObject, particulas.main.duration);
             Debug.Log("Ha tocado una llave dorada");
-            llavesDoradas++;
-            textoLlavesDoradas.text = "X" + llavesDoradas;
+            /*llavesDoradas++;
+            textoLlavesDoradas.text = "X" + llavesDoradas;*/
+            // Dispara el evento
+            onLlaveRecogida?.Invoke("dorada");
         }
     }
 
