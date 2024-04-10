@@ -63,7 +63,8 @@ public class JugadorMovimiento : LivingEntity
         // Rota el personaje para que mire hacia la dirección del movimiento
         if (moveInput.magnitude > 0)
         {
-            transform.LookAt(transform.position + moveInput.normalized);
+            Quaternion targetRotation = Quaternion.LookRotation(moveInput);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.15f);
         }
     }
 
