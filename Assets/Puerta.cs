@@ -38,7 +38,6 @@ public class Puerta : MonoBehaviour
         Destroy(gameObject);
     }*/
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("He chocado con la puerta");
 
         if (other.gameObject.CompareTag("Jugador"))
         {

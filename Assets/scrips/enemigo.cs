@@ -10,6 +10,10 @@ public class Enemigo : LivingEntity
     byte siguientePosicion = 0;
     bool gameover = false;
 
+    bool jugadorTocado = false;
+
+    public float tiempoResetJugadorTocado = 1f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,16 +47,24 @@ public class Enemigo : LivingEntity
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Jugador"))
+        if (other.CompareTag("Jugador")  && !jugadorTocado)
         {
             JugadorMovimiento jugador = other.GetComponent<JugadorMovimiento>();
             if (jugador != null)
             {
                 jugador.Morir();
+                jugadorTocado = true;
+                 StartCoroutine(ResetearJugadorTocado());
             }
         }
     }
-    
+
+      IEnumerator ResetearJugadorTocado()
+    {
+        yield return new WaitForSeconds(tiempoResetJugadorTocado);
+        jugadorTocado = false; // Restablecer jugadorTocado a false después de 2 segundos
+    }
+
     void GameOver(){
         gameover = true;
     }
