@@ -15,15 +15,33 @@ public class enemigosquesiguen : MonoBehaviour
     {
         pathfinder = GetComponent<UnityEngine.AI.NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Jugador").transform;
+        
         //PlayerController.onDeathJugador += GameOver; //Suscribirse al evento
     }
 
     // Update is called once per frame
     void Update()
     {
-         pathfinder.SetDestination(target.position);
+        if (!gameover){
+                pathfinder.SetDestination(target.position);
+        }
+         
     }
-    void GameOver(){
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Jugador"))
+        {
+            JugadorMovimiento jugador = other.GetComponent<JugadorMovimiento>();
+            if (jugador != null)
+            {
+                jugador.Morir();
+            }
+        }
+    }
+
+   void GameOver(){
         gameover = true;
     }
+    
 }
