@@ -18,8 +18,10 @@ public class Puerta : MonoBehaviour
 
     void LlaveRecogida(string tipoLlave)
     {
-         if (tipoLlave == "normal" && jugadorMovimiento.llavesNormales > 0)
+        Debug.Log("Llave recogida");
+        if (tipoLlave == "normal" && jugadorMovimiento.llavesNormales > 0)
         {
+            Debug.Log("Es una llave normal");
             jugadorMovimiento.llavesNormales++;
             jugadorMovimiento.textoLlavesNormales.text = "X" + jugadorMovimiento.llavesNormales;
             
