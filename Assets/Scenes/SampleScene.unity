@@ -1536,7 +1536,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319125626}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &319125628
 Camera:
   m_ObjectHideFlags: 0
@@ -7328,6 +7328,9 @@ MonoBehaviour:
   textoPremios: {fileID: 585731115}
   textoLlavesNormales: {fileID: 1379152537}
   textoLlavesDoradas: {fileID: 1569271652}
+  vida: 3
+  llavesNormales: 0
+  llavesDoradas: 0
 --- !u!54 &1698133451
 Rigidbody:
   m_ObjectHideFlags: 0

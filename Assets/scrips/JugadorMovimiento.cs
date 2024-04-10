@@ -20,6 +20,7 @@ public class JugadorMovimiento : LivingEntity
     public TMP_Text textoPremios;
     public TMP_Text textoLlavesNormales;
     public TMP_Text textoLlavesDoradas;
+    public float vida = 3;
 
     // Eventos
     public delegate void OnDeathJugador();
@@ -107,7 +108,11 @@ public class JugadorMovimiento : LivingEntity
 
     public void Morir()
     {
-        gameObject.SetActive(false);
+        vida--;
+        if (vida == 0){
+             gameObject.SetActive(false);
+        }
+       
     }
 
     void OnDestroy()
