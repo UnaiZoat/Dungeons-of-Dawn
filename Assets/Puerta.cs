@@ -18,15 +18,14 @@ public class Puerta : MonoBehaviour
 
     void LlaveRecogida(string tipoLlave)
     {
-        Debug.Log("Llave recogida");
-        if (tipoLlave == "normal" && jugadorMovimiento.llavesNormales > 0)
+        if (tipoLlave == "normal")
         {
             Debug.Log("Es una llave normal");
             jugadorMovimiento.llavesNormales++;
             jugadorMovimiento.textoLlavesNormales.text = "X" + jugadorMovimiento.llavesNormales;
             
         }
-        else if (tipoLlave == "dorada" && jugadorMovimiento.llavesDoradas > 0)
+        else if (tipoLlave == "dorada")
         {
             jugadorMovimiento.llavesDoradas++;
             jugadorMovimiento.textoLlavesDoradas.text = "X" + jugadorMovimiento.llavesDoradas;
@@ -38,7 +37,9 @@ public class Puerta : MonoBehaviour
     {
         Destroy(gameObject);
     }*/
-    private void OnCollisionEnter(Collision other) {
+    private void OnTriggerEnter(Collider other) {
+        Debug.Log("He chocado con la puerta");
+
         if (other.gameObject.CompareTag("Jugador"))
         {
             if (jugadorMovimiento.llavesNormales >= llavesNecesarias)
