@@ -40,6 +40,19 @@ public class Enemigo : LivingEntity
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Jugador"))
+        {
+            JugadorMovimiento jugador = other.GetComponent<JugadorMovimiento>();
+            if (jugador != null)
+            {
+                jugador.Morir();
+            }
+        }
+    }
+    
     void GameOver(){
         gameover = true;
     }

@@ -96,6 +96,11 @@ public class JugadorMovimiento : LivingEntity
         }
     }
 
+    public void Morir()
+    {
+        gameObject.SetActive(false);
+    }
+
     void OnDestroy()
     {
         if (onDeathJugador != null)
