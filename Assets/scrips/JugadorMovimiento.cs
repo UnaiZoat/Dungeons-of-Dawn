@@ -20,19 +20,21 @@ public class JugadorMovimiento : LivingEntity
     public TMP_Text textoPremios;
     public TMP_Text textoLlavesNormales;
     public TMP_Text textoLlavesDoradas;
-    public float vida = 3;
+    public int vida = 3;
 
     // Eventos
     public delegate void OnDeathJugador();
     public static event OnDeathJugador onDeathJugador;
     public delegate void OnLlaveRecogida(string tipoLlave);
     public static event OnLlaveRecogida onLlaveRecogida;
-
+    //movimiento de la camara y recoleccion de objetos
     private Vector3 offset;
     private int premios = 0;
     public int llavesNormales = 0;
     public int llavesDoradas = 0;
-
+    //ccambio de sprite de corazones
+    [SerializeField] private List<GameObject> listaCorazones;
+    [SerializeField] private Sprite corazonDesactivado;
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -109,6 +111,8 @@ public class JugadorMovimiento : LivingEntity
     public void Morir()
     {
         vida--;
+        Image imagenCorazon = listaCorazones[vida].GetComponent<Image>();
+        imagenCorazon.sprite = corazonDesactivado;
         if (vida == 0){
              gameObject.SetActive(false);
         }
