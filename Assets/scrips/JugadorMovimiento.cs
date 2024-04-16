@@ -92,8 +92,8 @@ public class JugadorMovimiento : LivingEntity
         {
             Destroy(other.gameObject, particulas.main.duration);
             Debug.Log("Ha tocado una llave normal");
-            /*llavesNormales++;
-            textoLlavesNormales.text = "X" + llavesNormales;*/
+            llavesNormales++;
+            textoLlavesNormales.text = "X" + llavesNormales;
             // Dispara el evento
             onLlaveRecogida?.Invoke("normal");
         }
@@ -101,8 +101,8 @@ public class JugadorMovimiento : LivingEntity
         {
             Destroy(other.gameObject, particulas.main.duration);
             Debug.Log("Ha tocado una llave dorada");
-            /*llavesDoradas++;
-            textoLlavesDoradas.text = "X" + llavesDoradas;*/
+            llavesDoradas++;
+            textoLlavesDoradas.text = "X" + llavesDoradas;
             // Dispara el evento
             onLlaveRecogida?.Invoke("dorada");
         }
