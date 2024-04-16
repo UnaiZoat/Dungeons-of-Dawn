@@ -35,6 +35,10 @@ public class JugadorMovimiento : LivingEntity
     //ccambio de sprite de corazones
     [SerializeField] private List<GameObject> listaCorazones;
     [SerializeField] private Sprite corazonDesactivado;
+    
+    public float distanciaDesplazamiento = 0.5f;
+    public float velocidadDesplazamiento = 5f;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -45,6 +49,8 @@ public class JugadorMovimiento : LivingEntity
 
     void Update()
     {
+
+        
         // Detecta el movimiento del jugador
         moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         moveVelocity = moveInput.normalized * speed;
@@ -69,6 +75,7 @@ public class JugadorMovimiento : LivingEntity
             Quaternion targetRotation = Quaternion.LookRotation(moveInput);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.15f);
         }
+ 
     }
 
     void LateUpdate()
@@ -110,6 +117,11 @@ public class JugadorMovimiento : LivingEntity
 
     public void Morir()
     {
+        Vector3 direccionAtras = -transform.forward; // Dirección opuesta al frente del jugador
+        Vector3 desplazamiento = direccionAtras * distanciaDesplazamiento;
+
+        StartCoroutine(DesplazarHaciaAtras(desplazamiento));
+
         vida--;
         Image imagenCorazon = listaCorazones[vida].GetComponent<Image>();
         imagenCorazon.sprite = corazonDesactivado;
@@ -126,4 +138,20 @@ public class JugadorMovimiento : LivingEntity
             onDeathJugador();
         }
     }
+
+    private IEnumerator DesplazarHaciaAtras(Vector3 desplazamiento)
+{
+    float tiempo = 0f;
+    Vector3 posicionInicial = transform.position;
+    Vector3 objetivo = posicionInicial + desplazamiento;
+
+    while (tiempo < 1f)
+    {
+        tiempo += Time.deltaTime * velocidadDesplazamiento;
+        characterController.Move(Vector3.Lerp(posicionInicial, objetivo, tiempo) - transform.position);
+        yield return null;
+    }
+}
+
+
 }

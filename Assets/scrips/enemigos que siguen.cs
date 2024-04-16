@@ -40,6 +40,7 @@ public class enemigosquesiguen : MonoBehaviour
             {
                 Debug.Log("Jugador tocado");
                 jugador.Morir();
+                Vector3 normalContacto = (transform.position - other.transform.position).normalized;
                 jugadorTocado = true;
                  StartCoroutine(ResetearJugadorTocado());
             }
