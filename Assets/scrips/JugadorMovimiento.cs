@@ -39,6 +39,8 @@ public class JugadorMovimiento : LivingEntity
     public float distanciaDesplazamiento = 0.5f;
     public float velocidadDesplazamiento = 5f;
 
+    bool puedemoverse = true;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -50,7 +52,7 @@ public class JugadorMovimiento : LivingEntity
     void Update()
     {
 
-        
+        if (puedemoverse){
         // Detecta el movimiento del jugador
         moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         moveVelocity = moveInput.normalized * speed;
@@ -82,6 +84,7 @@ public class JugadorMovimiento : LivingEntity
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveInput);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.15f);
+        }
         }
  
     }
@@ -125,6 +128,7 @@ public class JugadorMovimiento : LivingEntity
 
     public void Morir()
     {
+        anim.SetTrigger("hit");
         Vector3 direccionAtras = -transform.forward; // Dirección opuesta al frente del jugador
         Vector3 desplazamiento = direccionAtras * distanciaDesplazamiento;
 
@@ -134,7 +138,9 @@ public class JugadorMovimiento : LivingEntity
         Image imagenCorazon = listaCorazones[vida].GetComponent<Image>();
         imagenCorazon.sprite = corazonDesactivado;
         if (vida == 0){
-             gameObject.SetActive(false);
+             anim.SetBool("dead", true);
+             puedemoverse = false;
+             //gameObject.SetActive(false);
         }
        
     }
