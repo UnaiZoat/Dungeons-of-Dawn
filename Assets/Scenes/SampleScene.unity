@@ -8238,6 +8238,7 @@ MonoBehaviour:
   textoLlavesNormales: {fileID: 1379152537}
   textoLlavesDoradas: {fileID: 1569271652}
   vida: 3
+  gravity: -9.8
   llavesNormales: 0
   llavesDoradas: 0
   listaCorazones:

@@ -21,6 +21,7 @@ public class JugadorMovimiento : LivingEntity
     public TMP_Text textoLlavesNormales;
     public TMP_Text textoLlavesDoradas;
     public int vida = 3;
+    public float gravity=-9.8f;
 
     // Eventos
     public delegate void OnDeathJugador();
@@ -49,7 +50,7 @@ public class JugadorMovimiento : LivingEntity
         anim = GetComponentInChildren<Animator>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
 
         if (puedemoverse){
@@ -63,6 +64,9 @@ public class JugadorMovimiento : LivingEntity
 
         if (Is_running){
             speed = 20;
+
+        }else{
+            speed = 15;
         }
 
         // Si el jugador se está moviendo, activa la animación de caminar
