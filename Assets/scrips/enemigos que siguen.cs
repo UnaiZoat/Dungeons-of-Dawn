@@ -10,7 +10,7 @@ public class enemigosquesiguen : MonoBehaviour
     bool gameover = false;
     bool jugadorTocado = false;
 
-    public float tiempoResetJugadorTocado = 1f;
+    public float tiempoResetJugadorTocado = 0.01f;
 
 
     // Start is called before the first frame update
