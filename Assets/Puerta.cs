@@ -34,12 +34,13 @@ public class Puerta : MonoBehaviour
     }*/
     
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("He chocado con la puerta");
+        //Debug.Log("He chocado con la puerta");
 
         if (other.gameObject.CompareTag("Jugador"))
         {
             if (jugadorMovimiento.llavesNormales >= llavesNecesarias)
             {
+                Debug.Log(jugadorMovimiento.llavesNormales);
                 jugadorMovimiento.llavesNormales -= llavesNecesarias;
                 jugadorMovimiento.textoLlavesNormales.text = "X" + jugadorMovimiento.llavesNormales;
                 Destroy(gameObject);
