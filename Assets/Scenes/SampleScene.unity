@@ -8232,7 +8232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthStart: 3
   mainCamera: {fileID: 963194227}
-  speed: 20
+  speed: 15
   particulas: {fileID: 632340510}
   textoPremios: {fileID: 585731115}
   textoLlavesNormales: {fileID: 1379152537}
@@ -8399,7 +8399,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698133449}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: da217624aef4f8d40a2f54469ae868e2, type: 3}
   m_Controller: {fileID: 9100000, guid: f1c5e49953b8a9045b1d42f93ddff557, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0

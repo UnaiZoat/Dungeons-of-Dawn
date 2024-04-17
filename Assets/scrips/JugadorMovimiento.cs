@@ -14,7 +14,7 @@ public class JugadorMovimiento : LivingEntity
     Rigidbody rb;
     public Camera mainCamera;
     Vector3 moveInput, moveVelocity;
-    public float speed = 8;
+    public float speed = 4;
     public ParticleSystem particulas;
     Animator anim;
     public TMP_Text textoPremios;
@@ -55,15 +55,23 @@ public class JugadorMovimiento : LivingEntity
         moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         moveVelocity = moveInput.normalized * speed;
 
+        bool Is_running = Input.GetButton("Fire1");
+
+        anim.SetBool("is_running", Is_running);
+
+        if (Is_running){
+            speed = 20;
+        }
+
         // Si el jugador se está moviendo, activa la animación de caminar
-        if (moveInput.magnitude > 0)
+        if (moveInput.magnitude > 0 && Is_running == false)
         {
-            anim.SetFloat("movimientos", 1.0f);
+            anim.SetBool("is_walking",true);
         }
         else
         {
             // Si el jugador no se está moviendo, activa la animación de idle
-            anim.SetFloat("movimientos", 0.0f);
+             anim.SetBool("is_walking",false);
         }
 
         // Aplica movimiento al CharacterController
