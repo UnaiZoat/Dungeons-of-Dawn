@@ -43,7 +43,7 @@ public class Interactions : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Colisiona con cofre");
+        //Debug.Log("Colisiona con cofre");
         if (other.gameObject.CompareTag("Cofre")) //Colisiona con cofre
         {
             //Debug.Log("Colisiona con cofre");

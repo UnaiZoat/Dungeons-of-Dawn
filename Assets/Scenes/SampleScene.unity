@@ -1882,6 +1882,10 @@ PrefabInstance:
       value: esqueleto sala 1
       objectReference: {fileID: 0}
     - target: {fileID: 1429129917893485919, guid: d556522de1e3f6b449746a3ffca38807, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429129917893485919, guid: d556522de1e3f6b449746a3ffca38807, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
@@ -3952,6 +3956,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3964c23ae9838e84889ea6d65b5861aa, type: 3}
+--- !u!1 &896447897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 896447898}
+  - component: {fileID: 896447900}
+  - component: {fileID: 896447899}
+  m_Layer: 0
+  m_Name: Espada
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &896447898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896447897}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1698133455}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &896447899
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896447897}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.825196, y: 2.3781707, z: 2.0301473}
+  m_Center: {x: 0.029502487, y: 0.6890837, z: 1.4107293}
+--- !u!114 &896447900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896447897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 964b395d36f2c4cf7be3ea75be094dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jugadorMovimiento: {fileID: 1698133450}
+  HitParticle: {fileID: 2629628210209888467, guid: ca6705a3f9070d14d819d179493bcfa0, type: 3}
 --- !u!1 &907776750
 GameObject:
   m_ObjectHideFlags: 0
@@ -7027,7 +7099,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -138.95001, y: -48.97296}
+  m_AnchoredPosition: {x: -138.94995, y: -48.973022}
   m_SizeDelta: {x: 196.73, y: 97.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1498456076
@@ -8335,7 +8407,6 @@ GameObject:
   - component: {fileID: 1698133457}
   - component: {fileID: 1698133458}
   - component: {fileID: 1698133459}
-  - component: {fileID: 1698133460}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Jugador
@@ -8367,7 +8438,6 @@ MonoBehaviour:
   canAttack: 1
   attackRate: 2
   isAttacking: 0
-  HitParticle: {fileID: 0}
   SwordAttackSound: {fileID: 8300000, guid: 5062919215c1747aea421443bd854a4e, type: 3}
   HitSound: {fileID: 8300000, guid: d49e5db1f2bb64482b0f5aa882a6fcfa, type: 3}
   DeathSound: {fileID: 8300000, guid: 1873d177f5bf040e2b30f03245d6bfe2, type: 3}
@@ -8495,6 +8565,7 @@ Transform:
   m_Children:
   - {fileID: 1988378044}
   - {fileID: 632340508}
+  - {fileID: 896447898}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!143 &1698133456
@@ -8653,27 +8724,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!65 &1698133460
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698133449}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1700387352 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8460917321318470221, guid: 3964c23ae9838e84889ea6d65b5861aa, type: 3}

@@ -21,7 +21,7 @@ public class CollisionDetection : MonoBehaviour
         boxCollider.enabled = jugadorMovimiento.isAttacking;
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Colision");
         if (other.CompareTag("Enemigo") && jugadorMovimiento.isAttacking)
