@@ -24,6 +24,7 @@ public class JugadorMovimiento : LivingEntity
     public float gravity=-9.8f;
     public bool canAttack = true;
     public float attackRate = 0f;
+    public bool isAttacking = false;
 
     public AudioClip SwordAttackSound;
     public AudioClip HitSound;
@@ -104,12 +105,13 @@ public class JugadorMovimiento : LivingEntity
 
     public void Attack()
     {
+        isAttacking = true;
         canAttack = false;
         Animator anim = GetComponent<Animator>();
         anim.SetTrigger("is_attacking");
         AudioSource audio = GetComponent<AudioSource>();
         audio.PlayOneShot(SwordAttackSound);
-        
+        StartCoroutine(ResetAttackBool());
         //StartCoroutine(AttackCooldown());
     }
 
@@ -119,6 +121,13 @@ public class JugadorMovimiento : LivingEntity
         yield return new WaitForSeconds(attackRate);
         canAttack = true;
     }*/
+
+    IEnumerator ResetAttackBool()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isAttacking = false;
+
+    }
 
     void LateUpdate()
     {
