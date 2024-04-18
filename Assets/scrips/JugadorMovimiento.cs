@@ -22,6 +22,12 @@ public class JugadorMovimiento : LivingEntity
     public TMP_Text textoLlavesDoradas;
     public int vida = 3;
     public float gravity=-9.8f;
+    public bool canAttack = true;
+    public float attackRate = 0f;
+
+    public AudioClip SwordAttackSound;
+    public AudioClip HitSound;
+    public AudioClip DeathSound;
 
     // Eventos
     public delegate void OnDeathJugador();
@@ -58,7 +64,7 @@ public class JugadorMovimiento : LivingEntity
         moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         moveVelocity = moveInput.normalized * speed;
 
-        bool Is_running = Input.GetButton("Fire1");
+        bool Is_running = Input.GetKey(KeyCode.LeftShift);
 
         anim.SetBool("is_running", Is_running);
 
@@ -90,8 +96,29 @@ public class JugadorMovimiento : LivingEntity
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.15f);
         }
         }
- 
+         if (Input.GetButtonDown("Fire1") /*&& canAttack*/)
+        {
+            Attack();
+        }
     }
+
+    public void Attack()
+    {
+        canAttack = false;
+        Animator anim = GetComponent<Animator>();
+        anim.SetTrigger("is_attacking");
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.PlayOneShot(SwordAttackSound);
+        
+        //StartCoroutine(AttackCooldown());
+    }
+
+    /*
+    IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(attackRate);
+        canAttack = true;
+    }*/
 
     void LateUpdate()
     {
@@ -142,11 +169,14 @@ public class JugadorMovimiento : LivingEntity
         Image imagenCorazon = listaCorazones[vida].GetComponent<Image>();
         imagenCorazon.sprite = corazonDesactivado;
         if (vida == 0){
-             anim.SetBool("dead", true);
-             puedemoverse = false;
-             //gameObject.SetActive(false);
+            anim.SetBool("dead", true);
+            puedemoverse = false;
+            AudioSource am = GetComponent<AudioSource>();
+            am.PlayOneShot(DeathSound);
+            //gameObject.SetActive(false);
         }
-       
+        AudioSource ah = GetComponent<AudioSource>();
+        ah.PlayOneShot(HitSound);
     }
 
     void OnDestroy()
@@ -158,7 +188,7 @@ public class JugadorMovimiento : LivingEntity
     }
 
     private IEnumerator DesplazarHaciaAtras(Vector3 desplazamiento)
-{
+    {
     float tiempo = 0f;
     Vector3 posicionInicial = transform.position;
     Vector3 objetivo = posicionInicial + desplazamiento;
@@ -169,7 +199,7 @@ public class JugadorMovimiento : LivingEntity
         characterController.Move(Vector3.Lerp(posicionInicial, objetivo, tiempo) - transform.position);
         yield return null;
     }
-}
+    }
 
 
 }
