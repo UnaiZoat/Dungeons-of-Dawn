@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemigosquesiguen : MonoBehaviour
 {
-
+    CharacterController characterController;
     public JugadorMovimiento jugadorMovimiento;
 
     UnityEngine.AI.NavMeshAgent pathfinder;
@@ -13,11 +13,14 @@ public class enemigosquesiguen : MonoBehaviour
     bool jugadorTocado = false;
 
     public float tiempoResetJugadorTocado = 0.01f;
+    public int vida = 3;
 
-
+    private float distanciaDesplazamiento = 50f;
+    private float velocidadDesplazamiento = 5f;
     // Start is called before the first frame update
     void Start()
     {
+        characterController = GetComponent<CharacterController>();
         pathfinder = GetComponent<UnityEngine.AI.NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Jugador").transform;
         
@@ -51,32 +54,38 @@ public class enemigosquesiguen : MonoBehaviour
         if (other.CompareTag("Espada") && jugadorMovimiento.isAttacking)
         {
             Debug.Log("COLISION CON ESPADA");
-            //GetComponent<Animator>().SetTrigger("Hit");
-            Transform child = other.transform.Find("Snow slash");
-            if (child != null)
+            GetComponent<Animator>().SetTrigger("Hit");
+            Vector3 direccionAtras = -transform.forward; // Dirección opuesta al frente del jugador
+            Vector3 desplazamiento = direccionAtras * distanciaDesplazamiento;
+
+            StartCoroutine(DesplazarHaciaAtras(desplazamiento));
+
+            vida--;
+            if (vida == 0)
             {
-                ParticleSystem hitParticle = child.GetComponent<ParticleSystem>();
-                if (hitParticle != null)
-                {
-                    hitParticle.Play();
-                }
-                else
-                {
-                    Debug.LogError("No se encontró el sistema de partículas en el objeto hijo.");
-                }
+                Destroy(gameObject);
             }
-            else
-            {
-                Debug.LogError("No se encontró un objeto hijo con el nombre especificado.");
-            }
-            //Instantiate(HitParticle, other.transform.position, Quaternion.identity);
         }
     }
 
-     IEnumerator ResetearJugadorTocado()
+    IEnumerator ResetearJugadorTocado()
     {
         yield return new WaitForSeconds(tiempoResetJugadorTocado);
         jugadorTocado = false; // Restablecer jugadorTocado a false después de 2 segundos
+    }
+
+    private IEnumerator DesplazarHaciaAtras(Vector3 desplazamiento)
+    {
+        float tiempo = 0f;
+        Vector3 posicionInicial = transform.position;
+        Vector3 objetivo = posicionInicial + desplazamiento;
+
+        while (tiempo < 1f)
+        {
+            tiempo += Time.deltaTime * velocidadDesplazamiento;
+            characterController.Move(Vector3.Lerp(posicionInicial, objetivo, tiempo) - transform.position);
+            yield return null;
+        }
     }
 
    void GameOver(){

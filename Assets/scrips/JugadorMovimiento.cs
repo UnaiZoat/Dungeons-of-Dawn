@@ -23,7 +23,7 @@ public class JugadorMovimiento : LivingEntity
     public int vida = 3;
     public float gravity=-9.8f;
     public bool canAttack = true;
-    public float attackRate = 0f;
+    public float attackRate = 0.5f;
     public bool isAttacking = false;
 
     public AudioClip SwordAttackSound;
@@ -129,15 +129,15 @@ public class JugadorMovimiento : LivingEntity
         AudioSource audio = GetComponent<AudioSource>();
         audio.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackBool());
-        //StartCoroutine(AttackCooldown());
+        StartCoroutine(AttackCooldown());
     }
 
-    /*
+    
     IEnumerator AttackCooldown()
     {
         yield return new WaitForSeconds(attackRate);
         canAttack = true;
-    }*/
+    }
 
     IEnumerator ResetAttackBool()
     {
@@ -215,16 +215,16 @@ public class JugadorMovimiento : LivingEntity
 
     private IEnumerator DesplazarHaciaAtras(Vector3 desplazamiento)
     {
-    float tiempo = 0f;
-    Vector3 posicionInicial = transform.position;
-    Vector3 objetivo = posicionInicial + desplazamiento;
+        float tiempo = 0f;
+        Vector3 posicionInicial = transform.position;
+        Vector3 objetivo = posicionInicial + desplazamiento;
 
-    while (tiempo < 1f)
-    {
-        tiempo += Time.deltaTime * velocidadDesplazamiento;
-        characterController.Move(Vector3.Lerp(posicionInicial, objetivo, tiempo) - transform.position);
-        yield return null;
-    }
+        while (tiempo < 1f)
+        {
+            tiempo += Time.deltaTime * velocidadDesplazamiento;
+            characterController.Move(Vector3.Lerp(posicionInicial, objetivo, tiempo) - transform.position);
+            yield return null;
+        }
     }
 
 
