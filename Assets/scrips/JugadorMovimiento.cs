@@ -109,6 +109,23 @@ public class JugadorMovimiento : LivingEntity
         canAttack = false;
         Animator anim = GetComponent<Animator>();
         anim.SetTrigger("is_attacking");
+        Transform child = transform.Find("Espada/Snow slash");
+        if (child != null)
+        {
+            ParticleSystem hitParticle = child.GetComponent<ParticleSystem>();
+            if (hitParticle != null)
+            {
+                hitParticle.Play();
+            }
+            else
+            {
+                Debug.LogError("No se encontró el sistema de partículas en el objeto hijo.");
+            }
+        }
+        else
+        {
+            Debug.LogError("No se encontró un objeto hijo con el nombre especificado.");
+        }
         AudioSource audio = GetComponent<AudioSource>();
         audio.PlayOneShot(SwordAttackSound);
         StartCoroutine(ResetAttackBool());
@@ -140,7 +157,7 @@ public class JugadorMovimiento : LivingEntity
         if (other.gameObject.CompareTag("premio"))
         {
             particulas.Play();
-            Destroy(other.gameObject, particulas.main.duration);
+            Destroy(other.gameObject, 0.0f);
             Debug.Log("Ha tocado una estrella");
             premios++;
             textoPremios.text = "X" + premios;
@@ -148,7 +165,7 @@ public class JugadorMovimiento : LivingEntity
         
         else if (other.gameObject.CompareTag("llaveNormal"))
         {
-            Destroy(other.gameObject, particulas.main.duration);
+            Destroy(other.gameObject, 0.0f);
             Debug.Log("Ha tocado una llave normal");
             llavesNormales++;
             textoLlavesNormales.text = "X" + llavesNormales;
@@ -157,7 +174,7 @@ public class JugadorMovimiento : LivingEntity
         }
         else if (other.gameObject.CompareTag("llaveDorada"))
         {
-            Destroy(other.gameObject, particulas.main.duration);
+            Destroy(other.gameObject, 0.0f);
             Debug.Log("Ha tocado una llave dorada");
             llavesDoradas++;
             textoLlavesDoradas.text = "X" + llavesDoradas;

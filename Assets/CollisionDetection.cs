@@ -23,12 +23,6 @@ public class CollisionDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Colision");
-        if (other.CompareTag("Enemigo") && jugadorMovimiento.isAttacking)
-        {
-            other.GetComponent<Animator>().SetTrigger("Hit");
-            HitParticle.Play();
-            //Instantiate(HitParticle, other.transform.position, Quaternion.identity);
-        }
+        
     }
 }

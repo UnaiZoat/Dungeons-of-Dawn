@@ -5,6 +5,8 @@ using UnityEngine;
 public class enemigosquesiguen : MonoBehaviour
 {
 
+    public JugadorMovimiento jugadorMovimiento;
+
     UnityEngine.AI.NavMeshAgent pathfinder;
     Transform target;
     bool gameover = false;
@@ -44,6 +46,30 @@ public class enemigosquesiguen : MonoBehaviour
                 jugadorTocado = true;
                  StartCoroutine(ResetearJugadorTocado());
             }
+        }
+        
+        if (other.CompareTag("Espada") && jugadorMovimiento.isAttacking)
+        {
+            Debug.Log("COLISION CON ESPADA");
+            //GetComponent<Animator>().SetTrigger("Hit");
+            Transform child = other.transform.Find("Snow slash");
+            if (child != null)
+            {
+                ParticleSystem hitParticle = child.GetComponent<ParticleSystem>();
+                if (hitParticle != null)
+                {
+                    hitParticle.Play();
+                }
+                else
+                {
+                    Debug.LogError("No se encontró el sistema de partículas en el objeto hijo.");
+                }
+            }
+            else
+            {
+                Debug.LogError("No se encontró un objeto hijo con el nombre especificado.");
+            }
+            //Instantiate(HitParticle, other.transform.position, Quaternion.identity);
         }
     }
 
