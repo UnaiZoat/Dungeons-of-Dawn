@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Dungeons-of-Dawn.sln"
+    "dotnet.defaultSolution": "Dungeons of Dawn.sln"
 }

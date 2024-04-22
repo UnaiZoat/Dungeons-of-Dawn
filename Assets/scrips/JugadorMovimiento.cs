@@ -25,6 +25,8 @@ public class JugadorMovimiento : LivingEntity
     public bool canAttack = true;
     public float attackRate = 0.5f;
     public bool isAttacking = false;
+    public Text GameOverText;
+
 
     public AudioClip SwordAttackSound;
     public AudioClip HitSound;
@@ -199,6 +201,7 @@ public class JugadorMovimiento : LivingEntity
             puedemoverse = false;
             AudioSource am = GetComponent<AudioSource>();
             am.PlayOneShot(DeathSound);
+            GameOverText.gameObject.SetActive(true);
             //gameObject.SetActive(false);
         }
         AudioSource ah = GetComponent<AudioSource>();
