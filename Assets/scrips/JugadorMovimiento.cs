@@ -192,8 +192,9 @@ public class JugadorMovimiento : LivingEntity
         Vector3 desplazamiento = direccionAtras * distanciaDesplazamiento;
 
         StartCoroutine(DesplazarHaciaAtras(desplazamiento));
-
+        if(vida>0){
         vida--;
+        }
         Image imagenCorazon = listaCorazones[vida].GetComponent<Image>();
         imagenCorazon.sprite = corazonDesactivado;
         if (vida == 0){
