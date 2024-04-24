@@ -58,7 +58,6 @@ public class JugadorMovimiento : LivingEntity
         rb = GetComponent<Rigidbody>();
         offset = mainCamera.transform.position - transform.position;
         anim = GetComponentInChildren<Animator>();
-        ReiniciarAnimaciones();
     }
 
     void FixedUpdate()
@@ -219,18 +218,6 @@ public class JugadorMovimiento : LivingEntity
             onDeathJugador();
         }
     }
-
-    public void ReiniciarAnimaciones()
-{
-    // Reinicia los parámetros del Animator
-    anim.SetBool("is_walking", false);
-    anim.SetBool("is_running", false);
-    anim.SetBool("dead", false);
-    anim.ResetTrigger("is_attacking");
-
-    // Inicia la animación de idle
-    anim.Play("Idle"); // Asegúrate de reemplazar "Idle" con el nombre de tu animación de idle
-}
 
     private IEnumerator DesplazarHaciaAtras(Vector3 desplazamiento)
     {

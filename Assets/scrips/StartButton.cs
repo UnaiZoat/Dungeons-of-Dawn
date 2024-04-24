@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour
 {
+    public AudioClip StartSound;
      public Button btn;
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,13 @@ public class StartButton : MonoBehaviour
     }
     void Pulsadoo(){
 
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.PlayOneShot(StartSound);
+        Invoke("CargarEscena", StartSound.length);
+    }
+
+    void CargarEscena()
+    {
         SceneManager.LoadScene("SampleScene");
     }
 }
