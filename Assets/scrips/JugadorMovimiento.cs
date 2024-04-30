@@ -63,6 +63,10 @@ public class JugadorMovimiento : LivingEntity
     void FixedUpdate()
     {
 
+        anim.SetBool("is_walking", false);
+        anim.SetBool("is_running", false);
+        anim.SetBool("dead", false);
+        anim.ResetTrigger("is_attacking");
         if (puedemoverse){
         // Detecta el movimiento del jugador
         moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
