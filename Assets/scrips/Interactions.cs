@@ -17,7 +17,6 @@ public class Interactions : MonoBehaviour
     private bool isInsideTriggerSwitch = false;
     private bool LeverUp = false;
     private Animator switchAnimatorRef;
-    private Transform objectCreateRefSwitch;
     private bool switchActive = false;
     // Start is called before the first frame update
     void Start()
@@ -45,6 +44,16 @@ public class Interactions : MonoBehaviour
                 chestOpened = true;
             }
         }
+        if(isInsideTriggerSwitch)
+        {
+            if(Input.GetButtonDown("E") && !switchActive)
+            {
+                LeverUp = !LeverUp;
+                Debug.Log("LeverUp: " + LeverUp);
+                switchAnimatorRef.SetBool("LeverUp", LeverUp);
+                switchActive = true;
+            }
+        }
     }
     void OnTriggerEnter(Collider other)
     {
@@ -64,7 +73,10 @@ public class Interactions : MonoBehaviour
         if(other.gameObject.CompareTag("Switch"))
         {
             isInsideTriggerSwitch = true;
-            Transform switchRef = other.transform.parent.Find("Lever_Prefab");
+            Transform switchRef = other.transform.parent.Find("Lever");
+            Animator switchAnimator = switchRef.GetComponent<Animator>();
+            switchAnimatorRef = switchAnimator;
+            
         }
     }
     void OnTriggerExit(Collider other)
