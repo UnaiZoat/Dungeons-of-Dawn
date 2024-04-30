@@ -12,6 +12,7 @@ TagManager:
   - llaveDorada
   - Cofre
   - Espada
+  - Switch
   layers:
   - Default
   - TransparentFX

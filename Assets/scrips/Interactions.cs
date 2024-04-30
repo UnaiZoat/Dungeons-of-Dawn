@@ -7,13 +7,18 @@ public class Interactions : MonoBehaviour
 {
     public Rigidbody objectref; //objeto dentro del cofre
 
-    private bool isInsideTrigger = false; //variable que permitira al jugador interactuar con el cofre
+    private bool isInsideTriggerChest = false; //variable que permitira al jugador interactuar con el cofre
     private bool isOpen = false;
     private Animator chestAnimatorRef;
     private Transform objectCreateRef;
     private bool objectCreated = false;
     private bool chestOpened = false;
 
+    private bool isInsideTriggerSwitch = false;
+    private bool LeverUp = false;
+    private Animator switchAnimatorRef;
+    private Transform objectCreateRefSwitch;
+    private bool switchActive = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +28,7 @@ public class Interactions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isInsideTrigger) //Colisiona con cofre
+        if(isInsideTriggerChest) //Colisiona con cofre
         { 
             if(Input.GetButtonDown("E") && !chestOpened)
             {
@@ -47,7 +52,7 @@ public class Interactions : MonoBehaviour
         if (other.gameObject.CompareTag("Cofre")) //Colisiona con cofre
         {
             //Debug.Log("Colisiona con cofre");
-            isInsideTrigger = true;
+            isInsideTriggerChest = true;
             //Referencias a los hijos del cofre
             Transform chestRef = other.transform.parent.Find("Cofre");
             //Debug.Log(chestRef);
@@ -56,12 +61,17 @@ public class Interactions : MonoBehaviour
             objectCreateRef = other.transform.parent.Find("objectCreatePoint");
 
         }
+        if(other.gameObject.CompareTag("Switch"))
+        {
+            isInsideTriggerSwitch = true;
+            Transform switchRef = other.transform.parent.Find("Lever_Prefab");
+        }
     }
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Cofre")) //Colisiona con cofre
         {
-            isInsideTrigger = false;
+            isInsideTriggerChest = false;
             
         }
     }
