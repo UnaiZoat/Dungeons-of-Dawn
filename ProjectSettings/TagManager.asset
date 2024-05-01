@@ -15,6 +15,9 @@ TagManager:
   - Switch
   - sumavida
   - Acertijo
+  - Switch2
+  - Switch3
+  - Switch4
   layers:
   - Default
   - TransparentFX

@@ -3,6 +3,35 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public class Switch
+{
+    public GameObject gameObject;
+    public bool LeverUp = false;
+    public Animator switchAnimatorRef;
+
+    public Switch(GameObject gameObject)
+    {
+        this.gameObject = gameObject;
+        Transform switchRef = gameObject.transform.Find("Lever");
+        if (switchRef != null)
+            {
+                this.switchAnimatorRef = switchRef.GetComponent<Animator>();
+                if (this.switchAnimatorRef == null)
+                {
+                    Debug.LogError("El objeto 'Lever' no tiene un componente Animator.");
+                }
+            }
+        //this.switchAnimatorRef = switchRef.GetComponent<Animator>();
+    }
+
+    public void Toggle()
+    {
+        LeverUp = !LeverUp;
+        Debug.Log("LeverUp: " + LeverUp);
+        switchAnimatorRef.SetBool("LeverUp", LeverUp);
+    }
+}
+
 public class Interactions : MonoBehaviour
 {
     public Rigidbody objectref; //objeto dentro del cofre
@@ -15,17 +44,22 @@ public class Interactions : MonoBehaviour
     private bool chestOpened = false;
 
     private bool isInsideTriggerSwitch = false;
-    private bool LeverUp = false;
-    private Animator switchAnimatorRef;
+    //private bool LeverUp = false;
+   // private Animator switchAnimatorRef;
     private bool switchActive = false;
 
+    public List<Switch> switches = new List<Switch>();
     public List<GameObject> interruptores; // Lista para almacenar los interruptores
     private List<GameObject> interruptoresActivados = new List<GameObject>(); // Lista para almacenar los interruptores activados por el jugador
     public List<GameObject> ordenCorrecto; // Lista que contiene el orden correcto de los interruptores
     // Start is called before the first frame update
     void Start()
     {
-        
+        foreach (GameObject interruptorGameObject in interruptores)
+        {
+            Switch interruptor = new Switch(interruptorGameObject);
+            switches.Add(interruptor);
+        }
     }
 
     // Update is called once per frame
@@ -50,12 +84,29 @@ public class Interactions : MonoBehaviour
         }
         if(isInsideTriggerSwitch)
         {
-            if(Input.GetButtonDown("E") && !switchActive)
+            //Debug.Log("Colisiona con switch");
+
+            // Encuentra el interruptor más cercano al jugador
+            Switch closestSwitch = null;
+            float closestDistance = float.MaxValue;
+            foreach (Switch interruptor in switches)
             {
-                LeverUp = !LeverUp;
-                Debug.Log("LeverUp: " + LeverUp);
-                switchAnimatorRef.SetBool("LeverUp", LeverUp);
-                switchActive = true;
+                float distance = Vector3.Distance(this.gameObject.transform.position, interruptor.gameObject.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestSwitch = interruptor;
+                    closestDistance = distance;
+                }
+            }
+            Debug.Log("interruptor más cercano: " + closestSwitch.gameObject.name);
+
+            // Si se encontró un interruptor y se presionó "E", activa el interruptor
+            if (closestSwitch != null && Input.GetButtonDown("E"))
+            {
+                Debug.Log("Interaccion con switch");
+                closestSwitch.Toggle();
+                isInsideTriggerSwitch = false;
+
             }
         }
     }
@@ -74,12 +125,13 @@ public class Interactions : MonoBehaviour
             objectCreateRef = other.transform.parent.Find("objectCreatePoint");
 
         }
+        
         if(other.gameObject.CompareTag("Switch"))
         {
             isInsideTriggerSwitch = true;
-            Transform switchRef = other.transform.parent.Find("Lever");
+            /*Transform switchRef = other.transform.parent.Find("Lever");
             Animator switchAnimator = switchRef.GetComponent<Animator>();
-            switchAnimatorRef = switchAnimator;
+            switchAnimatorRef = switchAnimator;*/
             
         }
     }
