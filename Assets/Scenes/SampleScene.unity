@@ -5059,7 +5059,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: -0.667474, y: -0.00066312426, z: 0.0006137387, w: -0.7446326}
-  m_LocalPosition: {x: 0, y: 700, z: 0}
+  m_LocalPosition: {x: -229, y: 700, z: -845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9341,7 +9341,7 @@ Transform:
   m_GameObject: {fileID: 1698133449}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 45, y: 6, z: -68}
+  m_LocalPosition: {x: -232, y: 6, z: -825}
   m_LocalScale: {x: 40, y: 40, z: 40}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9411,6 +9411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectref: {fileID: 428981761705157483, guid: 25e1a0bd1fab04b5bbf0cd08e0ce843a, type: 3}
+  PuertaAcertijo: {fileID: 1067871923}
   interruptores:
   - {fileID: 1163089365}
   - {fileID: 1719653832}

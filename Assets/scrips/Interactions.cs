@@ -30,7 +30,7 @@ public class Switch
         Debug.Log("LeverUp: " + LeverUp);
         switchAnimatorRef.SetBool("LeverUp", LeverUp);
     }
-    
+
     public void Untoggle()
     {
         LeverUp = false;
@@ -41,6 +41,7 @@ public class Switch
 public class Interactions : MonoBehaviour
 {
     public Rigidbody objectref; //objeto dentro del cofre
+    public GameObject PuertaAcertijo;
 
     private bool isInsideTriggerChest = false; //variable que permitira al jugador interactuar con el cofre
     private bool isOpen = false;
@@ -52,7 +53,7 @@ public class Interactions : MonoBehaviour
     private bool isInsideTriggerSwitch = false;
     //private bool LeverUp = false;
    // private Animator switchAnimatorRef;
-    private bool switchActive = false;
+    //private bool switchActive = false;
 
     public List<Switch> switches = new List<Switch>();
     public List<GameObject> interruptores; // Lista para almacenar los interruptores
@@ -172,7 +173,7 @@ public class Interactions : MonoBehaviour
             if (acertijoCompletado)
             {
                 Debug.Log("¡Acertijo completado!");
-                // Aquí puedes agregar cualquier acción que desees cuando el jugador complete el acertijo
+                Destroy(PuertaAcertijo);
             }
             else
             {
