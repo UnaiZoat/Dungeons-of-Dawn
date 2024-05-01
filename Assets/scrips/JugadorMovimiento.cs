@@ -201,7 +201,7 @@ public class JugadorMovimiento : LivingEntity
             Debug.Log("Ha tocado un sumavida");
             if (vida < 3){
                 vida++;
-                ActivarCorazon(vida);
+                ActivarCorazon(vida - 1);
             }
         }
     }
@@ -259,7 +259,7 @@ public class JugadorMovimiento : LivingEntity
     }
 
     private void ActivarCorazon(int indice){
-        Image imagenCorazon = listaCorazones[indice+1].GetComponent<Image>();
+        Image imagenCorazon = listaCorazones[indice].GetComponent<Image>();
         imagenCorazon.sprite = corazonActivado;
     }
 
