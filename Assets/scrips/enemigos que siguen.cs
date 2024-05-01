@@ -14,6 +14,7 @@ public class enemigosquesiguen : MonoBehaviour
 
     public float tiempoResetJugadorTocado = 0.01f;
     public int vida = 3;
+    public GameObject[] itemdrops;
 
     private float distanciaDesplazamiento = 50f;
     private float velocidadDesplazamiento = 5f;
@@ -64,6 +65,7 @@ public class enemigosquesiguen : MonoBehaviour
             if (vida == 0)
             {
                 Destroy(gameObject);
+                 ItemDrop();
             }
         }
     }
@@ -91,6 +93,12 @@ public class enemigosquesiguen : MonoBehaviour
    public void GameOver(){
         gameover = true;
         pathfinder.enabled = false;
+   }
+
+   private void ItemDrop(){
+        for( int i = 0; i < itemdrops.Length; i++){
+            Instantiate(itemdrops[i], transform.position, Quaternion.identity);
+        }
    }
 
 }
