@@ -18,6 +18,10 @@ public class Interactions : MonoBehaviour
     private bool LeverUp = false;
     private Animator switchAnimatorRef;
     private bool switchActive = false;
+
+    public List<GameObject> interruptores; // Lista para almacenar los interruptores
+    private List<GameObject> interruptoresActivados = new List<GameObject>(); // Lista para almacenar los interruptores activados por el jugador
+    public List<GameObject> ordenCorrecto; // Lista que contiene el orden correcto de los interruptores
     // Start is called before the first frame update
     void Start()
     {
@@ -86,5 +90,47 @@ public class Interactions : MonoBehaviour
             isInsideTriggerChest = false;
             
         }
+         if (other.CompareTag("Acertijo"))
+        {
+            Debug.Log("¡Saliste del área del acertijo!");
+            ReiniciarAcertijo();
+        }
     }
+    // Método para verificar si se ha completado el acertijo
+    private void VerificarAcertijo()
+    {
+        bool acertijoCompletado = true;
+        if (interruptoresActivados.Count == ordenCorrecto.Count)
+        {
+            for (int i = 0; i < interruptoresActivados.Count; i++)
+            {
+                if (interruptoresActivados[i] != ordenCorrecto[i])
+                {
+                    acertijoCompletado = false;
+                    break;
+                }
+            }
+            if (acertijoCompletado)
+            {
+                Debug.Log("¡Acertijo completado!");
+                // Aquí puedes agregar cualquier acción que desees cuando el jugador complete el acertijo
+            }
+        }
+    }
+
+    // Método para manejar la activación de los interruptores por parte del jugador
+    public void InterruptorActivado(GameObject interruptor)
+    {
+        interruptoresActivados.Add(interruptor);
+        VerificarAcertijo();
+    }
+
+    // Método para reiniciar el acertijo si el jugador comete un error
+    public void ReiniciarAcertijo()
+    {
+        interruptoresActivados.Clear();
+    }
+
+
+
 }

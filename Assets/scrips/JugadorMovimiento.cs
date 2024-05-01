@@ -15,7 +15,8 @@ public class JugadorMovimiento : LivingEntity
     public Camera mainCamera;
     Vector3 moveInput, moveVelocity;
     public float speed = 4;
-    public ParticleSystem particulas;
+    public ParticleSystem particulasPremio;
+    public ParticleSystem particulasCorazon;
     Animator anim;
     public TMP_Text textoPremios;
     public TMP_Text textoLlavesNormales;
@@ -169,7 +170,7 @@ public class JugadorMovimiento : LivingEntity
     {
         if (other.gameObject.CompareTag("premio"))
         {
-            particulas.Play();
+            particulasPremio.Play();
             Destroy(other.gameObject, 0.0f);
             Debug.Log("Ha tocado una estrella");
             premios++;
@@ -197,6 +198,7 @@ public class JugadorMovimiento : LivingEntity
 
          else if (other.gameObject.CompareTag("sumavida"))
         {
+            particulasCorazon.Play();
             Destroy(other.gameObject, 0.0f);
             Debug.Log("Ha tocado un sumavida");
             if (vida < 3){
