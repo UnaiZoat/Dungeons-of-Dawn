@@ -51,6 +51,7 @@ public class JugadorMovimiento : LivingEntity
     //ccambio de sprite de corazones
     [SerializeField] private List<GameObject> listaCorazones;
     [SerializeField] private Sprite corazonDesactivado;
+    [SerializeField] private Sprite corazonActivado;
     
     public float distanciaDesplazamiento = 0.5f;
     public float velocidadDesplazamiento = 5f;
@@ -193,6 +194,16 @@ public class JugadorMovimiento : LivingEntity
             // Dispara el evento
             onLlaveRecogida?.Invoke("dorada");
         }
+
+         else if (other.gameObject.CompareTag("sumavida"))
+        {
+            Destroy(other.gameObject, 0.0f);
+            Debug.Log("Ha tocado un sumavida");
+            if (vida < 3){
+                vida++;
+                ActivarCorazon(vida);
+            }
+        }
     }
 
     public void Morir()
@@ -247,5 +258,9 @@ public class JugadorMovimiento : LivingEntity
         }
     }
 
+    private void ActivarCorazon(int indice){
+        Image imagenCorazon = listaCorazones[indice+1].GetComponent<Image>();
+        imagenCorazon.sprite = corazonActivado;
+    }
 
 }
