@@ -27,6 +27,11 @@ public class JugadorMovimiento : LivingEntity
     public bool isAttacking = false;
     public Text GameOverText;
     public Button TryAgain;
+    public enemigosquesiguen Enemigo;
+    public enemigosquesiguen Enemigo1;
+    public enemigosquesiguen Enemigo2;
+    public enemigosquesiguen Enemigo3;
+    public enemigosquesiguen Enemigo4;
 
 
     public AudioClip SwordAttackSound;
@@ -209,10 +214,15 @@ public class JugadorMovimiento : LivingEntity
             am.PlayOneShot(DeathSound);
             GameOverText.gameObject.SetActive(true);
             TryAgain.gameObject.SetActive(true);
-            //gameObject.SetActive(false);
+            Enemigo.GameOver();
+            Enemigo1.GameOver();
+            Enemigo2.GameOver();
+            Enemigo3.GameOver();
+            Enemigo4.GameOver();
         }
         AudioSource ah = GetComponent<AudioSource>();
         ah.PlayOneShot(HitSound);
+        
     }
 
     void OnDestroy()

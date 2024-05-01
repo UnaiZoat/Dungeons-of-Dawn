@@ -9,8 +9,8 @@ public class enemigosquesiguen : MonoBehaviour
 
     UnityEngine.AI.NavMeshAgent pathfinder;
     Transform target;
-    bool gameover = false;
     bool jugadorTocado = false;
+    bool gameover = false;
 
     public float tiempoResetJugadorTocado = 0.01f;
     public int vida = 3;
@@ -30,7 +30,7 @@ public class enemigosquesiguen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameover && !jugadorTocado){
+        if ( !gameover && !jugadorTocado){
                 pathfinder.SetDestination(target.position);
         }
          
@@ -88,8 +88,9 @@ public class enemigosquesiguen : MonoBehaviour
         }
     }
 
-   void GameOver(){
+   public void GameOver(){
         gameover = true;
-    }
+        pathfinder.enabled = false;
+   }
 
 }

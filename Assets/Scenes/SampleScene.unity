@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2924,6 +2924,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &586372946 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7280046399833238864, guid: d556522de1e3f6b449746a3ffca38807, type: 3}
+  m_PrefabInstance: {fileID: 586372940}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586372942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffeaf3f25c7e17b4fbfa89eadb4a3b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &623033008
 GameObject:
   m_ObjectHideFlags: 0
@@ -5596,6 +5607,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1148055580 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7280046399833238864, guid: d556522de1e3f6b449746a3ffca38807, type: 3}
+  m_PrefabInstance: {fileID: 1910438005}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148055566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffeaf3f25c7e17b4fbfa89eadb4a3b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1155736669
 GameObject:
   m_ObjectHideFlags: 0
@@ -8764,6 +8786,11 @@ MonoBehaviour:
   isAttacking: 0
   GameOverText: {fileID: 957058726}
   TryAgain: {fileID: 1701332246}
+  Enemigo: {fileID: 2138764108}
+  Enemigo1: {fileID: 1148055580}
+  Enemigo2: {fileID: 586372946}
+  Enemigo3: {fileID: 1876665257}
+  Enemigo4: {fileID: 2077031387}
   SwordAttackSound: {fileID: 8300000, guid: 5062919215c1747aea421443bd854a4e, type: 3}
   HitSound: {fileID: 8300000, guid: d49e5db1f2bb64482b0f5aa882a6fcfa, type: 3}
   DeathSound: {fileID: 8300000, guid: 1873d177f5bf040e2b30f03245d6bfe2, type: 3}
@@ -9766,6 +9793,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1876665257 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7280046399833238864, guid: d556522de1e3f6b449746a3ffca38807, type: 3}
+  m_PrefabInstance: {fileID: 1876665251}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876665253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffeaf3f25c7e17b4fbfa89eadb4a3b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1901828943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11032,6 +11070,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2077031387 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7280046399833238864, guid: d556522de1e3f6b449746a3ffca38807, type: 3}
+  m_PrefabInstance: {fileID: 2077031381}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077031383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffeaf3f25c7e17b4fbfa89eadb4a3b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2095471355 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8890471959296593455, guid: ba16f821ba93a1240bfed81d61f300ac, type: 3}
@@ -11375,6 +11424,17 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2138764108 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7280046399833238864, guid: d556522de1e3f6b449746a3ffca38807, type: 3}
+  m_PrefabInstance: {fileID: 441191938}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138764094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffeaf3f25c7e17b4fbfa89eadb4a3b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2145667849
 PrefabInstance:
   m_ObjectHideFlags: 0
