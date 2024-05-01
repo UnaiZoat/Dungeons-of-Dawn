@@ -30,6 +30,12 @@ public class Switch
         Debug.Log("LeverUp: " + LeverUp);
         switchAnimatorRef.SetBool("LeverUp", LeverUp);
     }
+    
+    public void Untoggle()
+    {
+        LeverUp = false;
+        switchAnimatorRef.SetBool("LeverUp", LeverUp);
+    }
 }
 
 public class Interactions : MonoBehaviour
@@ -105,6 +111,7 @@ public class Interactions : MonoBehaviour
             {
                 Debug.Log("Interaccion con switch");
                 closestSwitch.Toggle();
+                InterruptorActivado(closestSwitch.gameObject);
                 isInsideTriggerSwitch = false;
 
             }
@@ -167,6 +174,11 @@ public class Interactions : MonoBehaviour
                 Debug.Log("¡Acertijo completado!");
                 // Aquí puedes agregar cualquier acción que desees cuando el jugador complete el acertijo
             }
+            else
+            {
+                Debug.Log("¡El acertijo no está completo! Inténtalo de nuevo.");
+                ReiniciarAcertijo();
+            }
         }
     }
 
@@ -181,6 +193,10 @@ public class Interactions : MonoBehaviour
     public void ReiniciarAcertijo()
     {
         interruptoresActivados.Clear();
+        foreach (Switch interruptor in switches)
+        {
+            interruptor.Untoggle();
+        }
     }
 
 
