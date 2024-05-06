@@ -18,6 +18,7 @@ TagManager:
   - Switch2
   - Switch3
   - Switch4
+  - Sign
   layers:
   - Default
   - TransparentFX

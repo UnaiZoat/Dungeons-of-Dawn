@@ -49,15 +49,16 @@ public class JugadorMovimiento : LivingEntity
     private int premios = 0;
     public int llavesNormales = 0;
     public int llavesDoradas = 0;
-    //ccambio de sprite de corazones
+    //cambio de sprite de corazones
     [SerializeField] private List<GameObject> listaCorazones;
     [SerializeField] private Sprite corazonDesactivado;
     [SerializeField] private Sprite corazonActivado;
+
     
     public float distanciaDesplazamiento = 0.5f;
     public float velocidadDesplazamiento = 5f;
 
-    bool puedemoverse = true;
+    public bool puedemoverse = true;
 
     void Start()
     {

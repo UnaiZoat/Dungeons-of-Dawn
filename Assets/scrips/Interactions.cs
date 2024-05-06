@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class Switch
 {
@@ -27,7 +28,7 @@ public class Switch
     public void Toggle()
     {
         LeverUp = !LeverUp;
-        Debug.Log("LeverUp: " + LeverUp);
+        //Debug.Log("LeverUp: " + LeverUp);
         switchAnimatorRef.SetBool("LeverUp", LeverUp);
     }
 
@@ -54,7 +55,13 @@ public class Interactions : MonoBehaviour
     //private bool LeverUp = false;
    // private Animator switchAnimatorRef;
     //private bool switchActive = false;
-
+    private bool isInsideTriggerSign = false;
+    private bool isSignActive = false;
+    [SerializeField] private GameObject cajaTexto;
+    [SerializeField] private TMP_Text textoDialogo;
+    [SerializeField] private JugadorMovimiento jugadorMovimiento;
+    //[SerializeField, TextArea(3,10)] private string[] arrayTextos;
+    
     public List<Switch> switches = new List<Switch>();
     public List<GameObject> interruptores; // Lista para almacenar los interruptores
     private List<GameObject> interruptoresActivados = new List<GameObject>(); // Lista para almacenar los interruptores activados por el jugador
@@ -62,6 +69,7 @@ public class Interactions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        jugadorMovimiento = GetComponent<JugadorMovimiento>();
         foreach (GameObject interruptorGameObject in interruptores)
         {
             Switch interruptor = new Switch(interruptorGameObject);
@@ -105,7 +113,7 @@ public class Interactions : MonoBehaviour
                     closestDistance = distance;
                 }
             }
-            Debug.Log("interruptor más cercano: " + closestSwitch.gameObject.name);
+            //Debug.Log("interruptor más cercano: " + closestSwitch.gameObject.name);
 
             // Si se encontró un interruptor y se presionó "E", activa el interruptor
             if (closestSwitch != null && Input.GetButtonDown("E"))
@@ -117,6 +125,26 @@ public class Interactions : MonoBehaviour
 
             }
         }
+        Debug.Log("is: " + isInsideTriggerSign);
+        Debug.Log("sign: " + isSignActive);
+        Debug.Log("jm: " + jugadorMovimiento.puedemoverse);
+
+    if(isInsideTriggerSign && !isSignActive)
+    {
+        if(Input.GetButtonDown("E"))
+        {
+            jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
+            isSignActive = true; // Cambia el estado del cartel primero
+            ActivaDesactivaCajaTextos(true); // Finalmente, activa el cartel
+        }
+    }
+    if(isSignActive){
+        if(Input.GetButtonDown("E"))
+        {
+            StartCoroutine(WaitAndToggleSign());
+        }
+    }
+
     }
     void OnTriggerEnter(Collider other)
     {
@@ -137,10 +165,14 @@ public class Interactions : MonoBehaviour
         if(other.gameObject.CompareTag("Switch"))
         {
             isInsideTriggerSwitch = true;
-            /*Transform switchRef = other.transform.parent.Find("Lever");
-            Animator switchAnimator = switchRef.GetComponent<Animator>();
-            switchAnimatorRef = switchAnimator;*/
             
+        }
+
+        if(other.gameObject.CompareTag("Sign"))
+        {
+            //Debug.Log("Colisiona con señal");
+
+            isInsideTriggerSign = true;
         }
     }
     void OnTriggerExit(Collider other)
@@ -154,6 +186,14 @@ public class Interactions : MonoBehaviour
         {
             Debug.Log("¡Saliste del área del acertijo!");
             ReiniciarAcertijo();
+        }
+        if(other.gameObject.CompareTag("Switch"))
+        {
+            isInsideTriggerSwitch = false;
+        }
+        if(other.gameObject.CompareTag("Sign"))
+        {
+            isInsideTriggerSign = false;
         }
     }
     // Método para verificar si se ha completado el acertijo
@@ -200,6 +240,21 @@ public class Interactions : MonoBehaviour
         }
     }
 
+    public void ActivaDesactivaCajaTextos(bool activado){
+        cajaTexto.SetActive(activado);
+    }
 
-
+    public void ShowText(string texto){
+        //cajaTexto.SetActive(true);
+        textoDialogo.text = texto.ToString();
+    }
+    
+    IEnumerator WaitAndToggleSign()
+    {
+        yield return new WaitForSeconds(15); // Espera un segundo
+        jugadorMovimiento.puedemoverse = true;
+        ActivaDesactivaCajaTextos(false);
+        isSignActive = !isSignActive;
+        isInsideTriggerSign = false;
+    }
 }
