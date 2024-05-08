@@ -112,7 +112,7 @@ public class JugadorMovimiento : LivingEntity
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.15f);
         }
         }
-         if (Input.GetButtonDown("Fire1") /*&& canAttack*/)
+         if (Input.GetButtonDown("Fire1") && vida > 0)
         {
             Attack();
         }
