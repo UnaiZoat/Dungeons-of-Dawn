@@ -6,12 +6,10 @@ using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(Rigidbody))]
 
 public class JugadorMovimiento : LivingEntity
 {
     CharacterController characterController;
-    Rigidbody rb;
     public Camera mainCamera;
     Vector3 moveInput, moveVelocity;
     public float speed = 4;
@@ -24,6 +22,7 @@ public class JugadorMovimiento : LivingEntity
     public int vida = 3;
     public bool canAttack = true;
     public float attackRate = 0.5f;
+    public float gravity=-500f;
     public bool isAttacking = false;
     public Text GameOverText;
     public Button TryAgain;
@@ -62,7 +61,6 @@ public class JugadorMovimiento : LivingEntity
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        rb = GetComponent<Rigidbody>();
         offset = mainCamera.transform.position - transform.position;
         anim = GetComponentInChildren<Animator>();
     }
@@ -80,17 +78,23 @@ void FixedUpdate()
         moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         moveVelocity = moveInput.normalized * speed;
 
+        // Aplica gravedad
+        if (!characterController.isGrounded) // Si el jugador no está en el suelo
+        {
+            moveVelocity.y += gravity*10;// Aplica la gravedad
+        }
+
         bool Is_running = Input.GetKey(KeyCode.LeftShift);
 
         anim.SetBool("is_running", Is_running);
 
         if (Is_running)
         {
-            speed = 20;
+            speed = 500;
         }
         else
         {
-            speed = 15;
+            speed = 250;
         }
 
         // Si el jugador se está moviendo, activa la animación de caminar
@@ -105,7 +109,7 @@ void FixedUpdate()
         }
 
         // Aplica movimiento al CharacterController
-        characterController.Move(moveVelocity * speed * Time.deltaTime);
+        characterController.Move(moveVelocity * Time.deltaTime);
 
         // Rota el personaje para que mire hacia la dirección del movimiento
         if (moveInput.magnitude > 0)
@@ -120,6 +124,7 @@ void FixedUpdate()
         Attack();
     }
 }
+
 
 
 
