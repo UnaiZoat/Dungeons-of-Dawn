@@ -22,7 +22,6 @@ public class JugadorMovimiento : LivingEntity
     public TMP_Text textoLlavesNormales;
     public TMP_Text textoLlavesDoradas;
     public int vida = 3;
-    public float gravity=-9.8f;
     public bool canAttack = true;
     public float attackRate = 0.5f;
     public bool isAttacking = false;
@@ -68,14 +67,15 @@ public class JugadorMovimiento : LivingEntity
         anim = GetComponentInChildren<Animator>();
     }
 
-    void FixedUpdate()
+void FixedUpdate()
+{
+    anim.SetBool("is_walking", false);
+    anim.SetBool("is_running", false);
+    anim.SetBool("dead", false);
+    anim.ResetTrigger("is_attacking");
+    
+    if (puedemoverse)
     {
-
-        anim.SetBool("is_walking", false);
-        anim.SetBool("is_running", false);
-        anim.SetBool("dead", false);
-        anim.ResetTrigger("is_attacking");
-        if (puedemoverse){
         // Detecta el movimiento del jugador
         moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         moveVelocity = moveInput.normalized * speed;
@@ -84,22 +84,24 @@ public class JugadorMovimiento : LivingEntity
 
         anim.SetBool("is_running", Is_running);
 
-        if (Is_running){
+        if (Is_running)
+        {
             speed = 20;
-
-        }else{
+        }
+        else
+        {
             speed = 15;
         }
 
         // Si el jugador se está moviendo, activa la animación de caminar
-        if (moveInput.magnitude > 0 && Is_running == false)
+        if (moveInput.magnitude > 0 && !Is_running)
         {
-            anim.SetBool("is_walking",true);
+            anim.SetBool("is_walking", true);
         }
         else
         {
             // Si el jugador no se está moviendo, activa la animación de idle
-             anim.SetBool("is_walking",false);
+            anim.SetBool("is_walking", false);
         }
 
         // Aplica movimiento al CharacterController
@@ -109,14 +111,17 @@ public class JugadorMovimiento : LivingEntity
         if (moveInput.magnitude > 0)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveInput);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.15f);
-        }
-        }
-         if (Input.GetButtonDown("Fire1") && vida > 0)
-        {
-            Attack();
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f), 0.15f);
         }
     }
+
+    if (Input.GetButtonDown("Fire1") && vida > 0)
+    {
+        Attack();
+    }
+}
+
+
 
     public void Attack()
     {
