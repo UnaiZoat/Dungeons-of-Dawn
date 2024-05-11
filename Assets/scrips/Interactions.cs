@@ -174,6 +174,12 @@ public class Interactions : MonoBehaviour
 
             isInsideTriggerSign = true;
         }
+
+         if(other.gameObject.CompareTag("AreaCaida"))
+        {
+            jugadorMovimiento.vida =  0;
+            jugadorMovimiento.Morir();
+        }
     }
     void OnTriggerExit(Collider other)
     {

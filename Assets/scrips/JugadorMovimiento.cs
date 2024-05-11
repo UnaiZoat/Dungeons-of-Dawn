@@ -221,6 +221,19 @@ void FixedUpdate()
 
     public void Morir()
     {
+         if (vida == 0){
+            anim.SetBool("dead", true);
+            puedemoverse = false;
+            AudioSource am = GetComponent<AudioSource>();
+            am.PlayOneShot(DeathSound);
+            GameOverText.gameObject.SetActive(true);
+            TryAgain.gameObject.SetActive(true);
+            Enemigo.GameOver();
+            Enemigo1.GameOver();
+            Enemigo2.GameOver();
+            Enemigo3.GameOver();
+            Enemigo4.GameOver();
+        }
         anim.SetTrigger("hit");
         Vector3 direccionAtras = -transform.forward; // Dirección opuesta al frente del jugador
         Vector3 desplazamiento = direccionAtras * distanciaDesplazamiento;

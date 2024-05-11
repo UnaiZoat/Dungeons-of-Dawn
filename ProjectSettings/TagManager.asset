@@ -19,6 +19,7 @@ TagManager:
   - Switch3
   - Switch4
   - Sign
+  - AreaCaida
   layers:
   - Default
   - TransparentFX
