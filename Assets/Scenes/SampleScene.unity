@@ -12751,6 +12751,14 @@ PrefabInstance:
       propertyPath: jugadorMovimiento
       value: 
       objectReference: {fileID: 1698133450}
+    - target: {fileID: 7280046399833238864, guid: d556522de1e3f6b449746a3ffca38807, type: 3}
+      propertyPath: itemdrops.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7280046399833238864, guid: d556522de1e3f6b449746a3ffca38807, type: 3}
+      propertyPath: itemdrops.Array.data[0]
+      value: 
+      objectReference: {fileID: 5808329256592955077, guid: 6fc7c9b30d00a3a438809899ff0c05af, type: 3}
     - target: {fileID: 7437287998169815523, guid: d556522de1e3f6b449746a3ffca38807, type: 3}
       propertyPath: m_Speed
       value: 100
