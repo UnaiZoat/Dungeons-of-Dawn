@@ -20,6 +20,10 @@ TagManager:
   - Switch4
   - Sign
   - AreaCaida
+  - Sign1
+  - Sign2
+  - Sign3
+  - Sign4
   layers:
   - Default
   - TransparentFX

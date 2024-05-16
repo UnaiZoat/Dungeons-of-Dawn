@@ -55,9 +55,20 @@ public class Interactions : MonoBehaviour
     //private bool LeverUp = false;
    // private Animator switchAnimatorRef;
     //private bool switchActive = false;
-    private bool isInsideTriggerSign = false;
-    private bool isSignActive = false;
-    [SerializeField] private GameObject cajaTexto;
+    private bool isInsideTriggerSign1 = false;
+    private bool isInsideTriggerSign2 = false;
+    private bool isInsideTriggerSign3 = false;
+    private bool isInsideTriggerSign4 = false;
+
+    private bool isSignActive1 = false;
+    private bool isSignActive2 = false;
+    private bool isSignActive3 = false;
+    private bool isSignActive4 = false;
+
+    [SerializeField] private GameObject cajaTexto1;
+    [SerializeField] private GameObject cajaTexto2;
+    [SerializeField] private GameObject cajaTexto3;
+    [SerializeField] private GameObject cajaTexto4;
     [SerializeField] private TMP_Text textoDialogo;
     [SerializeField] private JugadorMovimiento jugadorMovimiento;
     //[SerializeField, TextArea(3,10)] private string[] arrayTextos;
@@ -125,23 +136,76 @@ public class Interactions : MonoBehaviour
 
             }
         }
-        Debug.Log("is: " + isInsideTriggerSign);
-        Debug.Log("sign: " + isSignActive);
+        /*
+        Debug.Log("is: " + isInsideTriggerSign1);
+        Debug.Log("sign: " + isSignActive1);
         Debug.Log("jm: " + jugadorMovimiento.puedemoverse);
-
-    if(isInsideTriggerSign && !isSignActive)
+        */
+    if(isInsideTriggerSign1 && !isSignActive1)
     {
         if(Input.GetButtonDown("E"))
         {
             jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
-            isSignActive = true; // Cambia el estado del cartel primero
-            ActivaDesactivaCajaTextos(true); // Finalmente, activa el cartel
+            isSignActive1 = true; // Cambia el estado del cartel primero
+            ActivaDesactivaCajaTextos1(true); // Finalmente, activa el cartel
         }
     }
-    if(isSignActive){
+        
+    if(isInsideTriggerSign2 && !isSignActive2)
+    {
         if(Input.GetButtonDown("E"))
         {
-            StartCoroutine(WaitAndToggleSign());
+            jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
+            isSignActive2 = true; // Cambia el estado del cartel primero
+            ActivaDesactivaCajaTextos2(true); // Finalmente, activa el cartel
+        }
+    }
+        
+    if(isInsideTriggerSign3 && !isSignActive3)
+    {
+        if(Input.GetButtonDown("E"))
+        {
+            jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
+            isSignActive3 = true; // Cambia el estado del cartel primero
+            ActivaDesactivaCajaTextos3(true); // Finalmente, activa el cartel
+        }
+    }
+        
+    if(isInsideTriggerSign4 && !isSignActive4)
+    {
+        if(Input.GetButtonDown("E"))
+        {
+            jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
+            isSignActive4 = true; // Cambia el estado del cartel primero
+            ActivaDesactivaCajaTextos4(true); // Finalmente, activa el cartel
+        }
+    }
+
+    if(isSignActive1){
+        if(Input.GetButtonDown("E"))
+        {
+            StartCoroutine(WaitAndToggleSign1());
+        }
+    }
+       
+    if(isSignActive2){
+        if(Input.GetButtonDown("E"))
+        {
+            StartCoroutine(WaitAndToggleSign2());
+        }
+    }
+
+    if(isSignActive3){
+        if(Input.GetButtonDown("E"))
+        {
+            StartCoroutine(WaitAndToggleSign3());
+        }
+    }
+       
+    if(isSignActive4){
+        if(Input.GetButtonDown("E"))
+        {
+            StartCoroutine(WaitAndToggleSign4());
         }
     }
 
@@ -168,11 +232,29 @@ public class Interactions : MonoBehaviour
             
         }
 
-        if(other.gameObject.CompareTag("Sign"))
+        if(other.gameObject.CompareTag("Sign1"))
         {
             //Debug.Log("Colisiona con señal");
 
-            isInsideTriggerSign = true;
+            isInsideTriggerSign1 = true;
+        }
+        if(other.gameObject.CompareTag("Sign2"))
+        {
+            //Debug.Log("Colisiona con señal");
+
+            isInsideTriggerSign2 = true;
+        }
+        if(other.gameObject.CompareTag("Sign3"))
+        {
+            //Debug.Log("Colisiona con señal");
+
+            isInsideTriggerSign3 = true;
+        }
+        if(other.gameObject.CompareTag("Sign4"))
+        {
+            //Debug.Log("Colisiona con señal");
+
+            isInsideTriggerSign4 = true;
         }
 
          if(other.gameObject.CompareTag("AreaCaida"))
@@ -197,9 +279,21 @@ public class Interactions : MonoBehaviour
         {
             isInsideTriggerSwitch = false;
         }
-        if(other.gameObject.CompareTag("Sign"))
+        if(other.gameObject.CompareTag("Sign1"))
         {
-            isInsideTriggerSign = false;
+            isInsideTriggerSign1 = false;
+        }
+        if(other.gameObject.CompareTag("Sign2"))
+        {
+            isInsideTriggerSign2 = false;
+        }
+        if(other.gameObject.CompareTag("Sign3"))
+        {
+            isInsideTriggerSign3 = false;
+        }
+        if(other.gameObject.CompareTag("Sign4"))
+        {
+            isInsideTriggerSign4 = false;
         }
     }
     // Método para verificar si se ha completado el acertijo
@@ -246,21 +340,59 @@ public class Interactions : MonoBehaviour
         }
     }
 
-    public void ActivaDesactivaCajaTextos(bool activado){
-        cajaTexto.SetActive(activado);
+    public void ActivaDesactivaCajaTextos1(bool activado){
+        cajaTexto1.SetActive(activado);
     }
+    
+    public void ActivaDesactivaCajaTextos2(bool activado){
+        cajaTexto2.SetActive(activado);
+    }
+    public void ActivaDesactivaCajaTextos3(bool activado){
+        cajaTexto3.SetActive(activado);
+    }
+    public void ActivaDesactivaCajaTextos4(bool activado){
+        cajaTexto4.SetActive(activado);
+    }
+
 
     public void ShowText(string texto){
         //cajaTexto.SetActive(true);
         textoDialogo.text = texto.ToString();
     }
     
-    IEnumerator WaitAndToggleSign()
+    IEnumerator WaitAndToggleSign1()
     {
-        yield return new WaitForSeconds(15); // Espera un segundo
+        yield return new WaitForSeconds(10); // Espera 15 segundos
         jugadorMovimiento.puedemoverse = true;
-        ActivaDesactivaCajaTextos(false);
-        isSignActive = !isSignActive;
-        isInsideTriggerSign = false;
+        ActivaDesactivaCajaTextos1(false);
+        isSignActive1 = !isSignActive1;
+        isInsideTriggerSign1 = false;
+    }
+
+    IEnumerator WaitAndToggleSign2()
+    {
+        yield return new WaitForSeconds(10); // Espera 15 segundos
+        jugadorMovimiento.puedemoverse = true;
+        ActivaDesactivaCajaTextos2(false);
+        isSignActive2 = !isSignActive2;
+        isInsideTriggerSign2 = false;
+    }
+        
+    IEnumerator WaitAndToggleSign3()
+    {
+        yield return new WaitForSeconds(10); // Espera 15 segundos
+        jugadorMovimiento.puedemoverse = true;
+        ActivaDesactivaCajaTextos3(false);
+        isSignActive3 = !isSignActive3;
+        isInsideTriggerSign3 = false;
+    }
+        
+    IEnumerator WaitAndToggleSign4()
+    {
+        yield return new WaitForSeconds(15); // Espera 15 segundos
+        jugadorMovimiento.puedemoverse = true;
+        ActivaDesactivaCajaTextos4(false);
+        isSignActive4 = !isSignActive4;
+        isInsideTriggerSign4 = false;
     }
 }
