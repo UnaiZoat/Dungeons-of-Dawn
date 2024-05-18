@@ -44,7 +44,7 @@ public class JugadorMovimiento : LivingEntity
     public static event OnLlaveRecogida onLlaveRecogida;
     //movimiento de la camara y recoleccion de objetos
     private Vector3 offset;
-    private int premios = 0;
+    public int premios = 0;
     public int llavesNormales = 0;
     public int llavesDoradas = 0;
     //cambio de sprite de corazones
@@ -57,6 +57,8 @@ public class JugadorMovimiento : LivingEntity
     public float velocidadDesplazamiento = 5f;
 
     public bool puedemoverse = true;
+    private bool tieneEscudo = false;
+    public GameObject escudo;
 
     void Start()
     {
@@ -116,6 +118,15 @@ void FixedUpdate()
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveInput);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f), 0.15f);
+        }
+    }
+
+    if(tieneEscudo){
+        if(Input.GetMouseButton(1)){
+            escudo.SetActive(true);
+        }
+        else{
+            escudo.SetActive(false);
         }
     }
 
@@ -287,6 +298,10 @@ void FixedUpdate()
     private void ActivarCorazon(int indice){
         Image imagenCorazon = listaCorazones[indice].GetComponent<Image>();
         imagenCorazon.sprite = corazonActivado;
+    }
+
+    public void ActivarEscudo(){
+        tieneEscudo = true;
     }
 
 }

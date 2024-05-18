@@ -43,6 +43,7 @@ public class Interactions : MonoBehaviour
 {
     public Rigidbody objectref; //objeto dentro del cofre
     public GameObject PuertaAcertijo;
+    public GameObject escudo;
 
     private bool isInsideTriggerChest = false; //variable que permitira al jugador interactuar con el cofre
     private bool isOpen = false;
@@ -60,6 +61,8 @@ public class Interactions : MonoBehaviour
     private bool isInsideTriggerSign3 = false;
     private bool isInsideTriggerSign4 = false;
 
+    private bool isInsideTriggerShield = false;
+
     private bool isSignActive1 = false;
     private bool isSignActive2 = false;
     private bool isSignActive3 = false;
@@ -69,6 +72,10 @@ public class Interactions : MonoBehaviour
     [SerializeField] private GameObject cajaTexto2;
     [SerializeField] private GameObject cajaTexto3;
     [SerializeField] private GameObject cajaTexto4;
+    [SerializeField] private GameObject cajaTextoEscudo;
+    [SerializeField] private GameObject cajaTextoEscudo1;
+
+
     [SerializeField] private TMP_Text textoDialogo;
     [SerializeField] private JugadorMovimiento jugadorMovimiento;
     //[SerializeField, TextArea(3,10)] private string[] arrayTextos;
@@ -141,74 +148,96 @@ public class Interactions : MonoBehaviour
         Debug.Log("sign: " + isSignActive1);
         Debug.Log("jm: " + jugadorMovimiento.puedemoverse);
         */
-    if(isInsideTriggerSign1 && !isSignActive1)
-    {
-        if(Input.GetButtonDown("E"))
+        if(isInsideTriggerSign1 && !isSignActive1)
         {
-            jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
-            isSignActive1 = true; // Cambia el estado del cartel primero
-            ActivaDesactivaCajaTextos1(true); // Finalmente, activa el cartel
+            if(Input.GetButtonDown("E"))
+            {
+                jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
+                isSignActive1 = true; // Cambia el estado del cartel primero
+                ActivaDesactivaCajaTextos1(true); // Finalmente, activa el cartel
+            }
         }
-    }
-        
-    if(isInsideTriggerSign2 && !isSignActive2)
-    {
-        if(Input.GetButtonDown("E"))
+            
+        if(isInsideTriggerSign2 && !isSignActive2)
         {
-            jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
-            isSignActive2 = true; // Cambia el estado del cartel primero
-            ActivaDesactivaCajaTextos2(true); // Finalmente, activa el cartel
+            if(Input.GetButtonDown("E"))
+            {
+                jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
+                isSignActive2 = true; // Cambia el estado del cartel primero
+                ActivaDesactivaCajaTextos2(true); // Finalmente, activa el cartel
+            }
         }
-    }
-        
-    if(isInsideTriggerSign3 && !isSignActive3)
-    {
-        if(Input.GetButtonDown("E"))
+            
+        if(isInsideTriggerSign3 && !isSignActive3)
         {
-            jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
-            isSignActive3 = true; // Cambia el estado del cartel primero
-            ActivaDesactivaCajaTextos3(true); // Finalmente, activa el cartel
+            if(Input.GetButtonDown("E"))
+            {
+                jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
+                isSignActive3 = true; // Cambia el estado del cartel primero
+                ActivaDesactivaCajaTextos3(true); // Finalmente, activa el cartel
+            }
         }
-    }
-        
-    if(isInsideTriggerSign4 && !isSignActive4)
-    {
-        if(Input.GetButtonDown("E"))
+            
+        if(isInsideTriggerSign4 && !isSignActive4)
         {
-            jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
-            isSignActive4 = true; // Cambia el estado del cartel primero
-            ActivaDesactivaCajaTextos4(true); // Finalmente, activa el cartel
+            if(Input.GetButtonDown("E"))
+            {
+                jugadorMovimiento.puedemoverse = false; // Luego establece la capacidad de moverse del jugador
+                isSignActive4 = true; // Cambia el estado del cartel primero
+                ActivaDesactivaCajaTextos4(true); // Finalmente, activa el cartel
+            }
         }
-    }
 
-    if(isSignActive1){
-        if(Input.GetButtonDown("E"))
-        {
-            StartCoroutine(WaitAndToggleSign1());
+        if(isSignActive1){
+            if(Input.GetButtonDown("E"))
+            {
+                StartCoroutine(WaitAndToggleSign1());
+            }
         }
-    }
-       
-    if(isSignActive2){
-        if(Input.GetButtonDown("E"))
-        {
-            StartCoroutine(WaitAndToggleSign2());
+        
+        if(isSignActive2){
+            if(Input.GetButtonDown("E"))
+            {
+                StartCoroutine(WaitAndToggleSign2());
+            }
         }
-    }
 
-    if(isSignActive3){
-        if(Input.GetButtonDown("E"))
-        {
-            StartCoroutine(WaitAndToggleSign3());
+        if(isSignActive3){
+            if(Input.GetButtonDown("E"))
+            {
+                StartCoroutine(WaitAndToggleSign3());
+            }
         }
-    }
-       
-    if(isSignActive4){
-        if(Input.GetButtonDown("E"))
-        {
-            StartCoroutine(WaitAndToggleSign4());
+        
+        if(isSignActive4){
+            if(Input.GetButtonDown("E"))
+            {
+                StartCoroutine(WaitAndToggleSign4());
+            }
         }
-    }
 
+        if(isInsideTriggerShield)
+        {
+            if(Input.GetButtonDown("E"))
+            {   
+                if( jugadorMovimiento.premios >= 5){
+                    jugadorMovimiento.ActivarEscudo();
+                    Destroy(escudo);
+                    isInsideTriggerShield = false;
+                    jugadorMovimiento.premios -= 5;
+                    jugadorMovimiento.puedemoverse = false;
+                    ActivaDesactivaCajaTextosEscudo1(true);
+                    StartCoroutine(WaitAndToggleEscudo1());
+                }
+                else{
+                    jugadorMovimiento.puedemoverse = false; 
+                    ActivaDesactivaCajaTextosEscudo(true); 
+                    StartCoroutine(WaitAndToggleEscudo());             
+                }
+                
+            }
+
+        }
     }
     void OnTriggerEnter(Collider other)
     {
@@ -256,8 +285,12 @@ public class Interactions : MonoBehaviour
 
             isInsideTriggerSign4 = true;
         }
+        if(other.gameObject.CompareTag("Shield"))
+        {
+            isInsideTriggerShield = true;
+        }
 
-         if(other.gameObject.CompareTag("AreaCaida"))
+        if(other.gameObject.CompareTag("AreaCaida"))
         {
             jugadorMovimiento.vida =  0;
             jugadorMovimiento.Morir();
@@ -294,6 +327,10 @@ public class Interactions : MonoBehaviour
         if(other.gameObject.CompareTag("Sign4"))
         {
             isInsideTriggerSign4 = false;
+        }
+        if(other.gameObject.CompareTag("Shield"))
+        {
+            isInsideTriggerShield = false;
         }
     }
     // Método para verificar si se ha completado el acertijo
@@ -354,6 +391,13 @@ public class Interactions : MonoBehaviour
         cajaTexto4.SetActive(activado);
     }
 
+    public void ActivaDesactivaCajaTextosEscudo(bool activado){
+        cajaTextoEscudo.SetActive(activado);
+    }
+    
+    public void ActivaDesactivaCajaTextosEscudo1(bool activado){
+        cajaTextoEscudo1.SetActive(activado);
+    }
 
     public void ShowText(string texto){
         //cajaTexto.SetActive(true);
@@ -362,7 +406,7 @@ public class Interactions : MonoBehaviour
     
     IEnumerator WaitAndToggleSign1()
     {
-        yield return new WaitForSeconds(10); // Espera 15 segundos
+        yield return new WaitForSeconds(10); // Espera 10 segundos
         jugadorMovimiento.puedemoverse = true;
         ActivaDesactivaCajaTextos1(false);
         isSignActive1 = !isSignActive1;
@@ -371,7 +415,7 @@ public class Interactions : MonoBehaviour
 
     IEnumerator WaitAndToggleSign2()
     {
-        yield return new WaitForSeconds(10); // Espera 15 segundos
+        yield return new WaitForSeconds(10); // Espera 10 segundos
         jugadorMovimiento.puedemoverse = true;
         ActivaDesactivaCajaTextos2(false);
         isSignActive2 = !isSignActive2;
@@ -380,7 +424,7 @@ public class Interactions : MonoBehaviour
         
     IEnumerator WaitAndToggleSign3()
     {
-        yield return new WaitForSeconds(10); // Espera 15 segundos
+        yield return new WaitForSeconds(10); // Espera 10 segundos
         jugadorMovimiento.puedemoverse = true;
         ActivaDesactivaCajaTextos3(false);
         isSignActive3 = !isSignActive3;
@@ -394,5 +438,20 @@ public class Interactions : MonoBehaviour
         ActivaDesactivaCajaTextos4(false);
         isSignActive4 = !isSignActive4;
         isInsideTriggerSign4 = false;
+    }
+
+    IEnumerator WaitAndToggleEscudo()
+    {
+        yield return new WaitForSeconds(5); // Espera 5 segundos
+        jugadorMovimiento.puedemoverse = true;
+        ActivaDesactivaCajaTextosEscudo(false);
+
+    }
+        IEnumerator WaitAndToggleEscudo1()
+    {
+        yield return new WaitForSeconds(5); // Espera 5 segundos
+        jugadorMovimiento.puedemoverse = true;
+        ActivaDesactivaCajaTextosEscudo1(false);
+
     }
 }

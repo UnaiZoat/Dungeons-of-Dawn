@@ -32,7 +32,10 @@ public class enemigosquesiguen : MonoBehaviour
     void Update()
     {
         if ( !gameover && !jugadorTocado){
+            if(pathfinder.isActiveAndEnabled && pathfinder.isOnNavMesh)
+            {
                 pathfinder.SetDestination(target.position);
+            }      
         }
          
     }
@@ -67,6 +70,13 @@ public class enemigosquesiguen : MonoBehaviour
                 Destroy(gameObject);
                  ItemDrop();
             }
+        }
+        if(other.CompareTag("ShieldPlayer")){
+            GetComponent<Animator>().SetTrigger("Hit");
+            Vector3 direccionAtras = -transform.forward; // Dirección opuesta al frente del jugador
+            Vector3 desplazamiento = direccionAtras * distanciaDesplazamiento;
+
+            StartCoroutine(DesplazarHaciaAtras(desplazamiento));
         }
     }
 

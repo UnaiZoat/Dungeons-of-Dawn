@@ -24,6 +24,8 @@ TagManager:
   - Sign2
   - Sign3
   - Sign4
+  - Shield
+  - ShieldPlayer
   layers:
   - Default
   - TransparentFX
