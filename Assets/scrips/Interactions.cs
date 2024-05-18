@@ -110,7 +110,7 @@ public class Interactions : MonoBehaviour
                 Rigidbody objectInstance;
                 Quaternion rotation = Quaternion.Euler(57.95f, -1.746f, -0.887f); // Cambia estos valores a la rotación que desees
                 objectInstance = Instantiate(objectref, objectCreateRef.position, rotation) as Rigidbody;
-                objectInstance.AddForce(0,700,-700f);
+                objectInstance.AddForce(0,5000,-2000f);
                 objectCreated = true;
                 chestOpened = true;
             }

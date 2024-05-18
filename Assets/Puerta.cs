@@ -7,8 +7,8 @@ using TMPro;
 public class Puerta : MonoBehaviour
 {
     public JugadorMovimiento jugadorMovimiento;
-    public int llavesNecesarias = 1;
-
+    public int llavesNormalesNecesarias = 1;
+    public int llavesDoradasNecesarias = 1;
     void Start()
     {
         // Suscríbete al evento
@@ -38,13 +38,24 @@ public class Puerta : MonoBehaviour
 
         if (other.gameObject.CompareTag("Jugador"))
         {
-            if (jugadorMovimiento.llavesNormales >= llavesNecesarias)
+            
+            if (jugadorMovimiento.llavesNormales >= llavesNormalesNecesarias)
             {
                 Debug.Log(jugadorMovimiento.llavesNormales);
-                jugadorMovimiento.llavesNormales -= llavesNecesarias;
+                jugadorMovimiento.llavesNormales -= llavesNormalesNecesarias;
                 jugadorMovimiento.textoLlavesNormales.text = "X" + jugadorMovimiento.llavesNormales;
                 Destroy(gameObject);
             }
+            
+            if (jugadorMovimiento.llavesDoradas >= llavesDoradasNecesarias)
+            {
+                Debug.Log(jugadorMovimiento.llavesDoradas);
+                jugadorMovimiento.llavesDoradas -= llavesDoradasNecesarias;
+                jugadorMovimiento.textoLlavesDoradas.text = "X" + jugadorMovimiento.llavesDoradas;
+                Destroy(gameObject);
+            }
+            
+            
         }   
     }
 }
