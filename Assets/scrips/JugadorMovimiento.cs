@@ -21,7 +21,7 @@ public class JugadorMovimiento : LivingEntity
     public TMP_Text textoLlavesDoradas;
     public int vida = 3;
     public bool canAttack = true;
-    public float attackRate = 0.5f;
+    public float attackRate = 1f;
     public float gravity=-500f;
     public bool isAttacking = false;
     public Text GameOverText;
